@@ -1,30 +1,56 @@
 import React, { Component } from "react";
 import Avocado from "./Avocado";
 import "./App.css";
-// import { NavLink } from "react-router-dom";
 import Result from "./Result";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import Loading from "./Loading";
+// import Guacamole from "./Guacamole";
 class Game extends Component {
   state = {
-    circles: new Array(6).fill({}).map(() => {
-      return { isAvocado: false };
-    }),
+    circles: [],
+    loading: true,
     score: 0,
-    remainingTime: 10
+    remainingTime: 20,
+    position: 0
   };
+  componentDidMount() {
+    this.startGame();
+  }
   startGame = () => {
+    this.setState({ loading: true });
     this.startCountDown(this.state.remainingTime);
     setInterval(() => {
       this.setState({
         circles: this.getCircles()
       });
     }, 1000);
+    this.setState({ loading: false });
   };
+  renderTime = value => {
+    if (value === 0) {
+      return <div className="timer">Too lale...</div>;
+    }
+    let seconds = value % 60;
+    return (
+      <div className="timer">
+        <div className="value">
+          {Math.floor(value / 60)}:{seconds}
+        </div>
+      </div>
+    );
+  };
+
   getCircles = () => {
-    const circlesArray = new Array(6).fill({}).map(() => {
-      return { isAvocado: false };
+    const circlesArray = new Array(9).fill({}).map(() => {
+      return { isAvocado: false, isGuacamole: false, loading: false };
     });
-    const randomNumber = Math.floor(Math.random() * Math.floor(6));
+    const randomNumber = Math.floor(Math.random() * Math.floor(9));
     circlesArray[randomNumber].isAvocado = true;
+
+    // if (this.avocadoSmashed) {
+    //   circlesArray[randomNumber].isGuacamole = true;
+    //   this.setState({ position: randomNumber });
+    // }
     return circlesArray;
   };
   startCountDown = seconds => {
@@ -34,12 +60,6 @@ class Game extends Component {
       this.setState({ remainingTime: counter });
       if (counter <= 0) {
         clearInterval(interval);
-        // alert("game Over! your Score is " + this.state.score);
-        // return (
-        //   <NavLink to="/result">
-        //     <button>Result</button>
-        //   </NavLink>
-        // );
       }
     }, 1000);
   };
@@ -54,7 +74,9 @@ class Game extends Component {
       return (
         <Avocado
           key={`circle-${index}`}
-          isVisible={circle.isAvocado}
+          isAvocadoVisible={circle.isAvocado}
+          // isGuacamoleVisible={circle.isGuacamole}
+          // position={this.state.postion}
           clicked={this.avocadoSmashed}
         />
       );
@@ -62,18 +84,25 @@ class Game extends Component {
     return (
       <div className="container header">
         {this.state.remainingTime === 0 && <Result score={this.state.score} />}
-        {this.state.remainingTime > 0 && (
-          <div class="row align-items-center">
-            <div class="col-sm-6">
-              <h2>Score: {this.state.score}</h2>
-              <p>Remaining Time: {this.state.remainingTime / 100} min</p>
-              <button
-                type="button"
-                className="btn btn-success"
-                onClick={this.startGame}
-              >
-                <h3>Start</h3>
-              </button>
+        {this.state.circles.length > 0 && this.state.remainingTime > 0 && (
+          <div className="row align-items-center">
+            <div className="col-sm-6">
+              <h2 className="display-4 text-center">
+                Score: {this.state.score}
+              </h2>
+
+              {this.loading ? (
+                <Loading />
+              ) : (
+                <CountdownCircleTimer
+                  isPlaying
+                  durationSeconds={20}
+                  colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
+                  renderTime={this.renderTime}
+                  onComplete={() => [true, 1000]}
+                />
+              )}
+
               <br></br>
             </div>
             <div class="col-sm-6">{circles}</div>

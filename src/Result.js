@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 const Result = props => {
   return (
-    <div className="header background">
+    <div className="header bgcolor">
       <div className="jumbotron">
         <h1 className="display-4" style={{ color: "#6CC72A" }}>
           Holy Guacamole!
