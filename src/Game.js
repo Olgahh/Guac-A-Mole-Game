@@ -3,28 +3,25 @@ import Avocado from "./Avocado";
 import "./App.css";
 import Result from "./Result";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import Loading from "./Loading";
-// import Guacamole from "./Guacamole";
+
 class Game extends Component {
   state = {
     circles: [],
-    loading: true,
+
     score: 0,
-    remainingTime: 20,
+    remainingTime: 120,
     position: 0
   };
   componentDidMount() {
     this.startGame();
   }
   startGame = () => {
-    this.setState({ loading: true });
     this.startCountDown(this.state.remainingTime);
     setInterval(() => {
       this.setState({
         circles: this.getCircles()
       });
     }, 1000);
-    this.setState({ loading: false });
   };
   renderTime = value => {
     if (value === 0) {
@@ -90,19 +87,13 @@ class Game extends Component {
               <h2 className="display-4 text-center">
                 Score: {this.state.score}
               </h2>
-
-              {this.loading ? (
-                <Loading />
-              ) : (
-                <CountdownCircleTimer
-                  isPlaying
-                  durationSeconds={20}
-                  colors={[["#004777", 0.33], ["#F7B801", 0.33], ["#A30000"]]}
-                  renderTime={this.renderTime}
-                  onComplete={() => [true, 1000]}
-                />
-              )}
-
+              <CountdownCircleTimer
+                isPlaying
+                durationSeconds={120}
+                colors={[["#edf974", 0.4], ["#edf974", 0.5], ["#A30000"]]}
+                renderTime={this.renderTime}
+                onComplete={() => [true, 1000]}
+              />
               <br></br>
             </div>
             <div class="col-sm-6">{circles}</div>
