@@ -7,6 +7,10 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.boarder {
+  border: 30px solid #edf974;
+  text-align: justify;
+}
 .bgcolor {
   background-color: #7caeaf;
   height: 100%;
@@ -22,4 +26,14 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.jumbotron {
+  background-color: #181b24;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.background {
+  background-image: url("./images/bg.jpg");
+  background-repeat: no-repeat;
 }
