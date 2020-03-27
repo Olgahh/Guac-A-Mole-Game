@@ -7,10 +7,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-.boarder {
-  border: 30px solid #edf974;
-  text-align: justify;
-}
+
 .bgcolor {
   background-color: #7caeaf;
   height: 100%;
@@ -33,7 +30,14 @@
   text-align: center;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
-.background {
-  background-image: url("./images/bg.jpg");
-  background-repeat: no-repeat;
+
+.timer {
+  font-size: 1.5em;
+}
+.bg2 {
+  background-image: url("./images/bg2.png");
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-repeat: repeat;
+  background-size: cover;
 }

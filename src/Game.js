@@ -3,11 +3,11 @@ import Avocado from "./Avocado";
 import "./App.css";
 import Result from "./Result";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import Guacamole from "./Guacamole";
 
 class Game extends Component {
   state = {
     circles: [],
-
     score: 0,
     remainingTime: 120,
     position: 0
@@ -25,7 +25,7 @@ class Game extends Component {
   };
   renderTime = value => {
     if (value === 0) {
-      return <div className="timer">Too lale...</div>;
+      return <div className="timer">Too late...</div>;
     }
     let seconds = value % 60;
     return (
@@ -36,18 +36,23 @@ class Game extends Component {
       </div>
     );
   };
-
+  avocadoSmashed = () => {
+    this.setState({
+      circles: this.getCircles(),
+      score: this.state.score + 5
+    });
+  };
   getCircles = () => {
     const circlesArray = new Array(9).fill({}).map(() => {
-      return { isAvocado: false, isGuacamole: false, loading: false };
+      return { isAvocado: false, isGuacamole: false };
     });
     const randomNumber = Math.floor(Math.random() * Math.floor(9));
     circlesArray[randomNumber].isAvocado = true;
 
-    // if (this.avocadoSmashed) {
-    //   circlesArray[randomNumber].isGuacamole = true;
-    //   this.setState({ position: randomNumber });
-    // }
+    if (this.avocadoSmashed) {
+      circlesArray[randomNumber].isGuacamole = true;
+      this.setState({ position: randomNumber });
+    }
     return circlesArray;
   };
   startCountDown = seconds => {
@@ -60,23 +65,17 @@ class Game extends Component {
       }
     }, 1000);
   };
-  avocadoSmashed = () => {
-    this.setState({
-      circles: this.getCircles(),
-      score: this.state.score + 5
-    });
-  };
+
   render() {
     const circles = this.state.circles.map((circle, index) => {
-      return (
-        <Avocado
-          key={`circle-${index}`}
-          isAvocadoVisible={circle.isAvocado}
-          // isGuacamoleVisible={circle.isGuacamole}
-          // position={this.state.postion}
-          clicked={this.avocadoSmashed}
-        />
-      );
+      if (circle.isAvocado) {
+        return (
+          <Avocado key={`circle-${index}`} clicked={this.avocadoSmashed} />
+        );
+      }
+      if (circle.isGuacamole) {
+        return <Guacamole key={`circle-${index}`} position={this.position} />;
+      } else return <div className="Circle"></div>;
     });
     return (
       <div className="container header">
