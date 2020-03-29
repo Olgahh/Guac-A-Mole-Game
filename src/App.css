@@ -1,19 +1,10 @@
 .bg {
-  background-color: "#7CAEAF";
   background-image: url("./images/bg.jpg");
   height: 100%;
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.bgcolor {
-  background-color: #7caeaf;
-  height: 100%;
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
 }
 .header {
   min-height: 100vh;
@@ -24,12 +15,19 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.bgcolor {
+  background-color: #7caeaf;
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
-.jumbotron {
+/* .jumbotron {
   background-color: #181b24;
   text-align: center;
   font-family: Georgia, "Times New Roman", Times, serif;
-}
+} */
 
 .timer {
   font-size: 1.5em;
@@ -38,6 +36,7 @@
   background-image: url("./images/bg2.png");
   height: 100%;
   /* Center and scale the image nicely */
-  background-repeat: repeat;
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
 }

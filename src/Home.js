@@ -1,27 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 const Home = () => {
   return (
     <div className="header bg ">
       <div className="align-self-center text-center">
-        <h1 className="display-3">
-          <strong>
-            <i>Guac-A-Mole</i>
-          </strong>
-        </h1>
-        <br></br>
-        <h3 className="display-5">Make the fastest and</h3>
+        <h1 className="display-3 mb-5">Guac-A-Mole</h1>
 
-        <h3 className="display-5 ">The most delicious guacamole! </h3>
+        <h4 className="display-5 mt-3">
+          Make the fastest and the most delicious guacamole!
+        </h4>
+
         <Link to="/game">
-          <button type="button" className="btn btn-success mt-3">
-            Start Game!!!
+          <button type="button mt-5" className="btn btn-success">
+            Start Game
           </button>
         </Link>
       </div>
     </div>
   );
 };
-
 export default Home;

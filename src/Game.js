@@ -48,11 +48,9 @@ class Game extends Component {
     });
     const randomNumber = Math.floor(Math.random() * Math.floor(9));
     circlesArray[randomNumber].isAvocado = true;
+    circlesArray[randomNumber].isGuacamole = true;
+    this.setState({ position: randomNumber });
 
-    if (this.avocadoSmashed) {
-      circlesArray[randomNumber].isGuacamole = true;
-      this.setState({ position: randomNumber });
-    }
     return circlesArray;
   };
   startCountDown = seconds => {
@@ -74,7 +72,13 @@ class Game extends Component {
         );
       }
       if (circle.isGuacamole) {
-        return <Guacamole key={`circle-${index}`} position={this.position} />;
+        return (
+          <Guacamole
+            key={`circle-${index}`}
+            position={this.state.circles[this.state.position]}
+            onChange={this.avocadoSmashed}
+          />
+        );
       } else return <div className="Circle"></div>;
     });
     return (
@@ -95,7 +99,7 @@ class Game extends Component {
               />
               <br></br>
             </div>
-            <div class="col-sm-6">{circles}</div>
+            <div className="col-sm-6">{circles}</div>
           </div>
         )}
       </div>
